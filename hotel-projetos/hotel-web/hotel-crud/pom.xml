@@ -67,6 +67,10 @@
 			<artifactId>hotel-common-utils</artifactId>
 			<version>1.0</version>
 		</dependency>
+                <dependency>
+                    <groupId>nz.net.ultraq.thymeleaf</groupId>
+                    <artifactId>thymeleaf-layout-dialect</artifactId>
+                </dependency>
 	</dependencies>
 
 	<build>
