@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
-    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Layout</title>
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Hotel CRUD</title>
     <!-- Bootstrap Core CSS -->
     <link th:href="@{/assets/plugins/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
     <!-- Custom CSS -->
@@ -49,13 +49,13 @@
                         <b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Light Logo icon -->
-                            <img th:src="@{/assets/images/logo-icon-dark.png}" alt="Home" class="light-logo" />
+                            <img th:src="@{/assets/images/logo-icon-dark.png}" alt="Inicio" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span>
                          <!-- Light Logo text -->    
-                         <img th:src="@{/assets/images/logo-text-light.png}" class="light-logo" alt="Home" /></span> </a>
+                         <img th:src="@{/assets/images/logo-text-light.png}" class="light-logo" alt="Inicio" /></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -119,7 +119,7 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12 m-t-30">
-                        <div class="card">
+                        <div class="card" layout:fragment="page-content">
                             <div class="card-body">
                                 Vitão
                             </div>

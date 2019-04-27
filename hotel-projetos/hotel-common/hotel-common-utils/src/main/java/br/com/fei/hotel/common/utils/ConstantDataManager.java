@@ -7,5 +7,7 @@ public final class ConstantDataManager
 		//
 	}
 	
+        //Geral
 	public static final String BASE_PACKAGE = "br.edu.fei.hotel";
+        public static final String BLANK = "";
 }
