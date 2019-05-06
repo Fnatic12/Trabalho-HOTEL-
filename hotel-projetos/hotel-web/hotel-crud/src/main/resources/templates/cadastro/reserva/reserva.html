@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{Layout/layout}" xmlns:th="http://www.thymeleaf.org/">
 <head>
-  <title>Manutenção de Cliente</title>
+  <title>Manutenção de Reserva</title>
 </head>
 <body>
   <div layout:fragment="page-content">
 	<!-- Validation wizard -->
 	   <div class="card wizard-content">
 	       <div class="card-body">
-	           <h4 class="card-title">Cadastro de Cliente</h4>
-	           <h6 class="card-subtitle">Preencha o formulario do cliente</h6>
+	           <h4 class="card-title">Formulario de Reserva</h4>
+	           <h6 class="card-subtitle">Preencha o formulario</h6>
 	           <div class="btn-group" role="group" aria-label="Buttons">
 				  <button type="button" class="btn btn-secondary" onclick="javascript:showModalBusca();">Procurar</button>
 				  <button type="button" class="btn btn-danger" onclick="javascript:deletarCliente();">Deletar</button>
 			   </div>
 	           <form th:action="@{/cadastro/cliente/save}" class="validation-wizard wizard-circle" id="formCliente" name="formCliente" method="post">
-               <h6>Dados Pessoais</h6>
+               <h6>Dados Gerais</h6>
 				<section>
 				    <div class="row">
 				        <div class="col-md-2">
@@ -24,99 +24,56 @@
 				                <input type="text" class="form-control" id="codigoCliente" name="codigoCliente" maxlength="9">
 				            </div>
 				        </div>
+				        <div class="col-md-5">
+				            <div class="form-group">
+				                <label for="cliente"> Cliente : <span class="danger">*</span> </label>
+				                <select id="cliente" name="cliente" class="form-control">
+			                    	<option th:each="qt : ${quarto}" th:value="${qt.key}" th:text="${qt.value}"></option>
+			                    </select>
+				            </div>
+				        </div>
+				        <div class="col-md-5">
+				            <div class="form-group">
+				                <label for="tipoQuarto"> Tipo de Quarto : <span class="danger">*</span> </label>
+				                <select id="tipoQuarto" name="tipoQuarto" class="form-control">
+			                    	<option value="ERR"> ERR </option>
+			                    </select>
+				            </div>
+				        </div>
 				        <div class="col-md-6">
 				            <div class="form-group">
-				                <label for="nomeCliente"> Nome : <span class="danger">*</span> </label>
-				                <input type="text" class="form-control" id="nomeCliente" name="nomeCliente" maxlength="50">
+				                <label for="inicioEstadia"> Inicio da Estadia : <span class="danger">*</span> </label>
+				                <input type="text" class="form-control" id="inicioEstadia" name="inicioEstadia" maxlength="10">
 				            </div>
 				        </div>
-				        <div class="col-md-4">
+				        <div class="col-md-6">
 				            <div class="form-group">
-				                <label for="dataNascimento"> Data de Nascimento : <span class="danger">*</span> </label>
-				                <input type="text" class="form-control" id="dataNascimento" name="dataNascimento" maxlength="10">
+				                <label for="fimEstadia"> Fim da Estadia : <span class="danger">*</span> </label>
+				                <input type="text" class="form-control" id="fimEstadia" name="fimEstadia" maxlength="10">
 				            </div>
 				        </div>
-				    </div>
-				    <div class="row">
-				        <div class="col-md-3">
+				        <div class="col-md-6">
 				            <div class="form-group">
-				            	<label for="telefoneFixo"> Telefone Fixo : </label>
-				            	<input type="text" class="form-control" id="telefone" name="telefone" maxlength="14">
+				                <label for="horaCheckin"> Hora de Check-In : <span class="danger">*</span> </label>
+				                <input type="text" class="form-control" id="horaCheckin" name="horaCheckin" maxlength="10" disabled="disabled">
 				            </div>
 				        </div>
-				         <div class="col-md-3">
+				        <div class="col-md-6">
 				            <div class="form-group">
-				            	<label for="celular"> Celular  : <span class="danger">*</span></label>
-				            	<input type="text" class="form-control" id="celular" name="celular" maxlength="15">
+				                <label for="horaCheckout"> Fim da Estadia : <span class="danger">*</span> </label>
+				                <input type="text" class="form-control" id="horaCheckout" name="horaCheckout" maxlength="10" disabled="disabled">
 				            </div>
 				        </div>
-				        <div class="col-md-3">
+				        <div class="col-md-6">
 				            <div class="form-group">
-				                <label for="cpf"> CPF : <span class="danger">*</span></label>
-				            	<input type="text" class="form-control" id="cpf" name="cpf" maxlength="12">
-				            </div>
-				        </div>
-				         <div class="col-md-3">
-				            <div class="form-group">
-				                <label for="rg"> RG : <span class="danger">*</span></label>
-				                <input type="text" class="form-control" id="rg" name="rg" maxlength="10">
-				            </div>
-				        </div>
-				    </div>
-				    <div class="row">
-				    	<div class="col-md-4">
-				            <div class="form-group">
-				                <label for="email"> E-Mail :</label>
-				                <input type="text" class="form-control" id="email" name="email" maxlength="50">
-				            </div>
-				        </div>
-				    </div>
-				</section>
-				<!-- Step 2 -->
-			    <h6>Dados de Endereço</h6>
-			    <section>
-			        <div class="row">
-			            <div class="col-md-4">
-			                <div class="form-group">
-			                    <label for="endereco"> Endereço : <span class="danger">*</span></label>
-			                    <input type="text" class="form-control" id="endereco" name="endereco" maxlength="50">
-			                </div>
-			            </div>
-			            <div class="col-md-4">
-			                <div class="form-group">
-			                    <label for="bairro"> Bairro : <span class="danger">*</span></label>
-			                    <input type="text" class="form-control" id="bairro" name="bairro" maxlength="30">
-			                </div>
-			            </div>
-			            <div class="col-md-4">
-			                <div class="form-group">
-			                    <label for="cep"> CEP : <span class="danger">*</span></label>
-			                    <input type="text" class="form-control" id="cep" name="cep" maxlength="30">
-			                </div>
-			            </div>
-			        </div>
-			        <div class="row">
-			            <div class="col-md-4">
-			                <div class="form-group">
-			                    <label for="cidade"> Cidade : <span class="danger">*</span></label>
-			                    <input type="text" class="form-control" id="cidade" name="cidade" maxlength="40">
-			                </div>
-			            </div>
-			            <div class="col-md-4">
-			                <div class="form-group">
-			                    <label for="estado"> Estado : <span class="danger">*</span></label>
-			                    <input type="text" class="form-control" id="estado" name="estado" maxlength="40">
-			                </div>
-			            </div>
-			            <div class="col-md-4">
-			                <div class="form-group">
-			                    <label for="pais"> Pais : <span class="danger">*</span></label>
-			                    <select id="pais" name="pais" class="form-control">
-			                    	<option value="BR"> Brasil </option>
+				                <label for="statusEstadia"> Status : <span class="danger">*</span> </label>
+				                <select id="statusEstadia" name="statusEstadia" class="form-control">
+			                    	<option value="1"> Ativa </option>
+			                    	<option value="2"> Cancelada </option>
 			                    </select>
-			                </div>
-			            </div>
-			        </div>
+				            </div>
+				        </div>
+				    </div>
 			    </section>
 	     	</form>
 	      </div>
@@ -358,106 +315,40 @@
                 error.insertAfter(element)
             }
             , rules: {
-            		nomeCliente:
+            		cliente:
             		{
             			required: true
             		},
-            		dataNascimento:
+            		tipoQuarto:
             		{
             			required: true
             		},
-            		celular:
+            		inicioEstadia:
             		{
             			required: true
             		},
-            		cpf:
-            		{
-            			required: true
-            		},
-            		rg:
-            		{
-            			required: true
-            		},
-            		email:
-            		{
-            			required: true,
-            			email: true
-            		},
-            		endereco:
-            		{
-            			required: true
-            		},
-            		bairro:
-            		{
-            			required: true
-            		},
-            		cep:
-            		{
-            			required: true
-            		},
-            		cidade:
-            		{
-            			required: true
-            		},
-            		estado:
-            		{
-            			required: true
-            		},
-            		pais:
+            		fimEstadia:
             		{
             			required: true
             		}
                 },
                 messages:
                 {
-            		nomeCliente:
+                	cliente:
             		{
-            			required: "Nome do Cliente obrigatório."
+            			required: "Cliente é obrigatório"
             		},
-            		dataNascimento:
+            		tipoQuarto:
             		{
-            			required: "Data de Nascimento obrigatória."
+            			required: "Tipo de Quarto é obrigatório"
             		},
-            		celular:
+            		inicioEstadia:
             		{
-            			required: "Celular obrigatório."
+            			required: "Inicio da Estadia é obrigatório"
             		},
-            		cpf:
+            		fimEstadia:
             		{
-            			required: "CPF obrigatório."
-            		},
-            		rg:
-            		{
-            			required: "RG obrigatório."
-            		},
-            		email:
-            		{
-            			required: "E-Mail obrigatório.",
-            			email: "E-Mail inválido."
-            		},
-            		endereco:
-            		{
-            			required: "Endereço obrigatório."
-            		},
-            		bairro:
-            		{
-            			required: "Bairro obrigatório."
-            		},
-            		cep:
-            		{
-            			required: "CEP obrigatório."
-            		},
-            		cidade:
-            		{
-            			required: "Cidade obrigatória."
-            		},
-            		estado:
-            		{
-            			required: "Estado obrigatório."
-            		},
-            		pais:
-            		{
-            			required: "Pais obrigatório."
+            			required: "Fim da Estadia é obrigatório"
             		}
                 }
         });
@@ -467,22 +358,18 @@
         	return /^\d*$/.test(value);
        	});
         
-        $("form#formCliente input#dataNascimento").datepicker({
+        $("form#formCliente input#inicioEstadia").datepicker({
         	format: 'dd/mm/yyyy',
         	language: 'pt-BR',
         	orientation: 'bottom',
         	autoclose: 'true'
         });
         
-        //Mascara CPF/RG
-        $("form#formCliente input#cpf").mask('000.000.000-00', {reverse: true});
-        $("form#formCliente input#rg").mask('00.000.000-0', {reverse: true});
-        
-        //Mascara Telefone/Celular
-        $("form#formCliente input#telefone").mask('(00) 0000-0000');
-        $("form#formCliente input#celular").mask('(00) 00000-0000');
-        
-        //Mascara CEP
-        $("form#formCliente input#cep").mask('00000-000');
+        $("form#formCliente input#fimEstadia").datepicker({
+        	format: 'dd/mm/yyyy',
+        	language: 'pt-BR',
+        	orientation: 'bottom',
+        	autoclose: 'true'
+        });
     });
 </script>

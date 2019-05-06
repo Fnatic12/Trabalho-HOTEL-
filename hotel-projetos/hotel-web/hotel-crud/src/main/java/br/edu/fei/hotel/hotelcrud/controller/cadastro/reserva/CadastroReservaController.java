@@ -1,4 +1,4 @@
-package br.edu.fei.hotel.hotelcrud.controller.cadastro.cliente;
+package br.edu.fei.hotel.hotelcrud.controller.cadastro.reserva;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -7,36 +7,51 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 
 import br.com.fei.hotel.common.service.CadastroClienteService;
+import br.com.fei.hotel.common.service.QuartoService;
 import br.com.fei.hotel.common.service.impl.CadastroClienteServiceImpl;
+import br.com.fei.hotel.common.service.impl.QuartoServiceImpl;
 import br.com.fei.hotel.common.utils.StringUtils;
 import br.com.fei.hotel.common.utils.exceptions.CrudException;
+import br.com.fei.hotel.common.utils.structure.Structure;
 import br.edu.fei.hotel.common.model.ClienteVO;
+import br.edu.fei.hotel.common.model.ComboboxVO;
 import br.edu.fei.hotel.hotelcrud.utils.ConstantDataManager;
 
-/**
- *
- * @author vitor
- */
 @Controller
-@RequestMapping(value = ConstantDataManager.CADASTRO_CLIENTE_CONTROLLER)
-public class CadastroClienteController
+@RequestMapping(value = ConstantDataManager.CADASTRO_RESERVA_CONTROLLER)
+public class CadastroReservaController
 {
-    @RequestMapping(value = ConstantDataManager.CADASTRO_CLIENTE_OPEN_METHOD)
-    public static String open(final HttpServletRequest request) throws Exception
+    @RequestMapping(value = ConstantDataManager.CADASTRO_RESERVA_OPEN_METHOD)
+    public static String open(final HttpServletRequest request, final Model model) throws Exception
     {
-        String result = ConstantDataManager.RESULT_CADASTRO_CLIENTE_OPEN_METHOD;
+        String result = ConstantDataManager.RESULT_CADASTRO_RESERVA_OPEN_METHOD;
         
         boolean status = false;
         String message = br.com.fei.hotel.common.utils.ConstantDataManager.BLANK;
         
         try
         {
+        	final CadastroClienteService clienteService = new CadastroClienteServiceImpl();
+        	final Structure<ComboboxVO> listClientes = clienteService.getAllClientesCombobox();
+        	
+        	final QuartoService quartoService = new QuartoServiceImpl();
+        	final Structure<ComboboxVO> listQuarto = quartoService.getQuartosCombobox();
+        	
+        	for(final ComboboxVO combo : listClientes)
+        	{
+        		System.out.println(combo.getValue());
+        	}
+        	
+        	model.addAttribute(ConstantDataManager.PARAMETER_CLIENTE, listClientes);
+        	model.addAttribute(ConstantDataManager.PARAMETER_QUARTO, listQuarto);
+        	
             status = true;
         }
         catch(final Exception e)
@@ -52,7 +67,7 @@ public class CadastroClienteController
         return result;
     }
     
-    @RequestMapping(value = ConstantDataManager.CADASTRO_CLIENTE_SAVE_METHOD, method = RequestMethod.POST)
+    @RequestMapping(value = ConstantDataManager.CADASTRO_RESERVA_SAVE_METHOD, method = RequestMethod.POST)
     public static ResponseEntity<String> save(final HttpServletRequest request) throws Exception
     {
     	final Map<String, Object> result = new TreeMap<String, Object>();
@@ -177,7 +192,7 @@ public class CadastroClienteController
     	return ResponseEntity.ok(json);
     }
     
-    @RequestMapping(value = ConstantDataManager.CADASTRO_CLIENTE_BUSCA_METHOD, method = RequestMethod.POST)
+    @RequestMapping(value = ConstantDataManager.CADASTRO_RESERVA_BUSCA_METHOD, method = RequestMethod.POST)
     public static ResponseEntity<String> buscarCliente(final HttpServletRequest request) throws Exception
     {
     	final Map<String, Object> result = new TreeMap<String, Object>();
@@ -218,7 +233,7 @@ public class CadastroClienteController
     	return ResponseEntity.ok(json);
     }
     
-    @RequestMapping(value = ConstantDataManager.CADASTRO_CLIENTE_DELETAR_METHOD, method = RequestMethod.POST)
+    @RequestMapping(value = ConstantDataManager.CADASTRO_RESERVA_DELETAR_METHOD, method = RequestMethod.POST)
     public static ResponseEntity<String> deletarCliente(final HttpServletRequest request) throws Exception
     {
     	final Map<String, Object> result = new TreeMap<String, Object>();

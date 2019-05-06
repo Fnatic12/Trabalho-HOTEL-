@@ -8,30 +8,32 @@ import java.io.Serializable;
  */
 public class DadosDocumentos implements Serializable
 {
-    private long cpf;
-    private long rg;
+	private static final long serialVersionUID = -7913565738029985626L;
+	
+	private String cpf;
+    private String rg;
     
-    private DadosDocumentos()
+    public DadosDocumentos()
     {
         super();
     }
 
-    public final long getCpf()
+    public final String getCpf()
     {
         return this.cpf;
     }
 
-    public final void setCpf(final long cpf)
+    public final void setCpf(final String cpf)
     {
         this.cpf = cpf;
     }
 
-    public final long getRg()
+    public final String getRg()
     {
         return this.rg;
     }
 
-    public final void setRg(final long rg)
+    public final void setRg(final String rg)
     {
         this.rg = rg;
     }

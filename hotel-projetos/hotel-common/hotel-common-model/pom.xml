@@ -7,4 +7,11 @@
   </parent>
   <artifactId>hotel-common-model</artifactId>
   <name>hotel-common-model</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>br.edu.fei</groupId>
+  		<artifactId>hotel-common-utils</artifactId>
+  		<version>1.0</version>
+  	</dependency>
+  </dependencies>
 </project>
